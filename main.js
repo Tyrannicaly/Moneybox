@@ -21,7 +21,7 @@ function init(){
 
         // ===== первый блок
        let card = create('div', 'card', '.container')
-        
+       card.id = id
         
 
         // let card = document.createElement('div');
@@ -116,8 +116,8 @@ function init(){
             date: "",
             startAmount:"",
             reqAmount:"",
-            regAmount:""
-            
+            regAmount:"",
+            id: id 
             
         }
         allCards.push(cardObj)
