@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body, html, p, input {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.main {
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h1 {
+    font-size: 35px;
+    margin-bottom: 0px;
+    letter-spacing: 0.04em;
+}
+
+.main p:nth-child(2) {
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgb(182, 180, 180);
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #602b7a;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 24px;
+}
+
+.container .line {
+    width: 185px;
+}
+
+.container :nth-child(6) {
+    width: 185px;
+    margin-left: 80px;
+}
+
+#goals {
+    width: 200px;
+    padding-top: 10px;
+}
+
+.container .totalAmount {
+    text-align: right;
+    padding: 3px;
+    width: 118px;
+    padding-top: 10px;
+}
+
+.container .addButton {
+    width: 50px;
+    height: 25px;
+    color: #FFF;
+    background-color: #ffd847;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 1px 1px 5px #e2be3d;
+    margin-top: 20px;
+}
+
+.container .addButton.pressed {
+    background-color: #eec83d;
+    box-shadow: -1px -1px 5px #f7d351;
+}
+
+.container .addButton:hover {
+    cursor: pointer;
+}
+
+.container :nth-child(4) {
+    width: auto;
+    text-align: right;
+    padding-top: 10px;
+}
+
+.card {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    background-color: #eee;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cardOpened {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.goalName, .date {
+    font-size: 18px;
+    padding-left: 5px;
+    margin-top: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+}
+
+.goalName {
+    width: auto;
+}
+
+.date {
+    width: 160px;
+    margin-left: 0;
+    color: gray;
+}
+
+.expand {
+    border: none;
+    font-weight: 600;
+    background-color: #602b7a;
+    color: #FFF;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid;
+    border-bottom-color: #ffd847;
+    height: 100%;
+    width: 30px;
+    align-self: right;
+}
+
+.expand:hover {
+    cursor: pointer;
+}
+
+.cardInner {
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-left: 5px;
+    flex-wrap: wrap;
+}
+
+.requiredAmount, .startAmount {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.requiredAmount p, .startAmount p {
+    width: 80px;
+    padding: 5px;
+}
+
+.cardInner input {
+    font-size: 18px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: none;
+    height: 30px;
+    width: 100px;
+}
+
+.regAmount {
+    display: flex;
+    padding-left: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.regAmountResult {
+    background-color: #FFF;
+    font-size: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    border: none;
+    height: 35px;
+    width: 200px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.delButton {
+    border: none;
+    font-weight: 600;
+    background-color: #602b7a;
+    color: #FFF;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid;
+    border-top-color: #ffd847;
+    width: 30px;
+}
+
+.delButton:hover {
+    cursor: pointer;
+}
