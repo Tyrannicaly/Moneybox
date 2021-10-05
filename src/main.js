@@ -11,8 +11,9 @@ function create(elementType, elementClass ){
 let allCards = [];
 
 window.addEventListener('load', init) 
+
 function init(){
-    
+    createCard()
     let addButton = document.querySelector('.addButton');
     addButton.addEventListener('click', createCard);
      function createCard(){
@@ -37,6 +38,7 @@ function init(){
         // goalName.classList.add('goalName');
         
         let goalName = create("input", "goalName")
+        goalName.placeholder= "Название цели"
         nameDate.append(goalName);
 
         // let date = document.createElement('input');
@@ -53,8 +55,9 @@ function init(){
         // expand.style.color = "black"
         // expand.style.border ='1px solid black'
         
-        let expand = create('div','expand')
-        expand.innerHTML = 'V'
+        let expand = create('button','expand')
+        expand.innerHTML = "Ʌ"
+       
         nameDate.append(expand);
         
 
@@ -69,32 +72,39 @@ function init(){
         // let amounts = document.createElement('div');
         // amounts.classList.add('amounts');
         
-        let amounts = create('div','amounts')
-        cardInner.append(amounts);
+        // let amounts = create('div','amounts')
+        // cardInner.append(amounts);
 
         // let delButton = document.createElement('button')
         // delButton.classList.add('delButton');
         
-        let delButton = create('button', 'delButton')
-        cardInner.append(delButton);
+        
 
         // let requiredAmount = document.createElement('div');
         // requiredAmount.classList.add('requiredAmount');
         // let reqInput = document.createElement('input');
         
         let requiredAmount = create('div', 'requiredAmount')
-        let reqInput = create('input')
+        requiredAmount.type = "number"
+        let reqInput = create('input');
+        let tagReqP = document.createElement("p");
+        tagReqP.innerText = "Требуемая сумма (₽):"
+        requiredAmount.append(tagReqP);
         requiredAmount.append(reqInput);
-        amounts.append(requiredAmount);
+        
+        cardInner.append(requiredAmount);
 
         // let startAmount = document.createElement('div');
         // startAmount.classList.add('startAmount');
         // let startAmountInput = document.createElement('input');
         
         let startAmount = create('div', 'startAmount')
+        let tagStartP = document.createElement("p")
+        tagStartP.innerText = "Стартовая сумма (₽):"
         let startAmountInput = create('input')
+        startAmount.append(tagStartP)
         startAmount.append(startAmountInput);
-        amounts.append(startAmount)
+        cardInner.append(startAmount)
         
         // let regAmount = document.createElement('div')
         // regAmount.classList.add('regAmount')
@@ -102,9 +112,17 @@ function init(){
         // regAmountResult.classList.add('regAmountResult')
         
         let regAmount = create('div','regAmount')
+        let tagRegP = document.createElement('p')
         let regAmountResult = create ('div', 'regAmountResult')
+        regAmountResult.innerText = "0₽"
+        tagRegP.innerText = "Размер регулярных пополнений:"
+        regAmount.append(tagRegP)
         regAmount.append(regAmountResult)
-        amounts.append(regAmount)
+        cardInner.append(regAmount);
+
+        let delButton = create('button', 'delButton')
+        card.append(delButton);
+        delButton.innerText = "X"
 
         document.querySelector('.container').append(card);
 

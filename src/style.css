@@ -126,7 +126,7 @@ h1 {
 }
 
 .date {
-    width: 160px;
+    width: 170px;
     margin-left: 0;
     color: gray;
 }
@@ -157,13 +157,15 @@ h1 {
     flex-wrap: wrap;
 }
 
-.requiredAmount, .startAmount {
+.requiredAmount,
+.startAmount {
     display: flex;
     align-items: center;
     margin-right: 5px;
 }
 
-.requiredAmount p, .startAmount p {
+.requiredAmount p,
+.startAmount p {
     width: 80px;
     padding: 5px;
 }
