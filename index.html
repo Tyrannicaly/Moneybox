@@ -1,14 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Moneybox by Torvalds</title>
+    <link rel="stylesheet" href="src/style.css">
+    <script src="src/main.js"></script>
 </head>
 <body>
-    
-    <script src="main.js"></script>
+    <div class="main">
+        <h1>Копилка</h1>
+        <p>6,5%</p>
+        <div class="line"></div>
+        <div class="container">
+            <p id="goals">Цели</p>
+            <button class="addButton">+</button>
+            <div class="totalAmount">0</div><p>₽/мес.</p>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="card">
+                <div class="nameDate cardOpened">
+                    <input class="goalName" type="text" placeholder="Название цели">
+                    <input class="date" type="date">
+                    <button class="expand">V</button>
+                </div>
+                <div class="cardInner">
+                <div class="requiredAmount">
+                    <p>Требуемая сумма (₽):</p>
+                    <input type="number">
+                </div>
+                <div class="startAmount">
+                    <p>Стартовая сумма (₽):</p>
+                    <input type="number">
+                </div>
+                <div class="regAmount">
+                    <p>Размер регулярных пополнений:</p>
+                    <div class="regAmountResult">0₽</div>
+                </div>
+                </div>
+                <button class="delButton">X</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
