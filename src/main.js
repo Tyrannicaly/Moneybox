@@ -144,3 +144,11 @@ function init(){
 
     }
                                             /////finish koda Pasha
+// ==== MEDOT REDUSE====//
+
+
+
+let result = allCards.reduce(function(sum, currentCard) {
+    return sum + +currentCard.regAmount
+}, 0);
+console.log(result)
