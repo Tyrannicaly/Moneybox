@@ -1,10 +1,9 @@
-function create(elementType, elementClass ){
+function create(elementType, elementClass){
     let newElement = document.createElement(elementType);
     newElement.classList.add(elementClass);
     // let parent = document.querySelector(elementParent)
     // parent.append(newElement)
     return newElement
-    
   }
 
         // ======= CREATION ARRAY=====///
@@ -12,19 +11,15 @@ let allCards = [];
 
 window.addEventListener('load', init) 
 
-function init(){
+function init() {
     createCard()
     let addButton = document.querySelector('.addButton');
     addButton.addEventListener('click', createCard);
-     function createCard(){
-
-
+     function createCard() {
 
         // ===== первый блок
        let card = create('div', 'card', '.container')
         
-        
-
         // let card = document.createElement('div');
         // card.classList.add('card');
 
@@ -49,7 +44,6 @@ function init(){
         date.type = "date"
         nameDate.append(date);
 
-
         // let expand = document.createElement('div');
         // expand.classList.add('expand');
         // expand.style.color = "black"
@@ -57,9 +51,7 @@ function init(){
         
         let expand = create('button','expand')
         expand.innerHTML = "Ʌ"
-       
         nameDate.append(expand);
-        
 
         // // ==== второй блок 
 
@@ -91,7 +83,6 @@ function init(){
         tagReqP.innerText = "Требуемая сумма (₽):"
         requiredAmount.append(tagReqP);
         requiredAmount.append(reqInput);
-        
         cardInner.append(requiredAmount);
 
         // let startAmount = document.createElement('div');
@@ -135,12 +126,25 @@ function init(){
             startAmount:"",
             reqAmount:"",
             regAmount:""
-            
-            
         }
         allCards.push(cardObj)
-     }
-    
 
+        //V-----------Shadow Box-----------V
+
+        delButton.addEventListener('mouseover', (event) => {
+            const shadowBox = document.createElement('div');
+            shadowBox.classList.add('shadowBox');
+            delButton.style.color = '#602b7a';
+            delButton.style.backgroundColor = '#ffd847'
+            card.append(shadowBox);
+            delButton.addEventListener('mouseout', (event) => {
+                shadowBox.remove();
+                delButton.style.removeProperty('color');
+                delButton.style.removeProperty('background-color');
+            })
+        })
+        //------------------------------------
+
+     }
     }
                                             /////finish koda Pasha
