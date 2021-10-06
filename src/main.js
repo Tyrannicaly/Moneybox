@@ -172,6 +172,14 @@ function changeObj(event) {
     }
     console.log(allCards)
 }
+// ==== MEDOT REDUSE====//
+
+
+
+let result = allCards.reduce(function(sum, currentCard) {
+    return sum + +currentCard.regAmount
+}, 0);
+console.log(result)
 
 
 /////finish koda Pasha
