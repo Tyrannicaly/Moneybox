@@ -88,7 +88,7 @@ h1 {
     cursor: pointer;
 }
 
-.container :nth-child(4) {
+.container p:nth-child(4) {
     width: auto;
     text-align: right;
     padding-top: 10px;
@@ -217,4 +217,13 @@ h1 {
 
 .delButton:hover {
     cursor: pointer;
+}
+
+.shadowBox {
+    position: absolute;
+    width: 420px;
+    height: 133.33px;
+    background-color: rgba(0, 0, 0, 0.33);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }

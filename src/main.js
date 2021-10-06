@@ -1,3 +1,4 @@
+
 function create(elementType, elementClass) {
     let newElement = document.createElement(elementType);
     if (elementClass) {
@@ -6,6 +7,7 @@ function create(elementType, elementClass) {
     // let parent = document.querySelector(elementParent)
     // parent.append(newElement)
     return newElement
+  }
 
 }
 
@@ -22,13 +24,9 @@ function init() {
 
     function createCard() {
 
-
-
         // ===== первый блок
         let card = create('div', 'card', '.container')
         card.id = id
-
-
 
         // let card = document.createElement('div');
         // card.classList.add('card');
@@ -54,7 +52,6 @@ function init() {
         date.type = "date"
         nameDate.append(date);
 
-
         // let expand = document.createElement('div');
         // expand.classList.add('expand');
         // expand.style.color = "black"
@@ -64,7 +61,6 @@ function init() {
         expand.innerHTML = "Ʌ"
 
         nameDate.append(expand);
-
 
         // // ==== второй блок 
 
@@ -142,6 +138,23 @@ function init() {
             regAmount: "",
             id: id
         }
+
+        //V-----------Shadow Box-----------V
+
+        delButton.addEventListener('mouseover', (event) => {
+            const shadowBox = document.createElement('div');
+            shadowBox.classList.add('shadowBox');
+            delButton.style.color = '#602b7a';
+            delButton.style.backgroundColor = '#ffd847'
+            card.append(shadowBox);
+            delButton.addEventListener('mouseout', (event) => {
+                shadowBox.remove();
+                delButton.style.removeProperty('color');
+                delButton.style.removeProperty('background-color');
+            })
+        })
+        //------------------------------------
+
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
@@ -149,7 +162,6 @@ function init() {
         date.addEventListener('change', changeObj)
         id++
     }
-
 
 }
 
