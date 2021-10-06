@@ -9,8 +9,6 @@ function create(elementType, elementClass) {
     return newElement
   }
 
-}
-
 // ======= CREATION ARRAY=====///
 let allCards = [];
 let id = 0;
