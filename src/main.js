@@ -26,34 +26,16 @@ function init() {
         let card = create('div', 'card', '.container')
         card.id = id
 
-        // let card = document.createElement('div');
-        // card.classList.add('card');
-
-        // let nameDate = document.createElement('div');
-        // nameDate.classList.add('nameDate');
-        // card.append(nameDate);
         let nameDate = create("div", "nameDate")
         card.append(nameDate)
-
-        // let goalName = document.createElement('input')
-        // goalName.classList.add('goalName');
 
         let goalName = create("input", "goalName")
         goalName.placeholder = "Название цели"
         nameDate.append(goalName);
 
-        // let date = document.createElement('input');
-        // date.type = 'date'
-        // date.classList.add('date');
-
         let date = create('input', 'date')
         date.type = "date"
         nameDate.append(date);
-
-        // let expand = document.createElement('div');
-        // expand.classList.add('expand');
-        // expand.style.color = "black"
-        // expand.style.border ='1px solid black'
 
         let expand = create('button', 'expand')
         expand.innerHTML = "Ʌ"
@@ -62,26 +44,8 @@ function init() {
 
         // // ==== второй блок 
 
-        // let cardInner = document.createElement('div');
-        // cardInner.classList.add('cardInner');
-
         let cardInner = create('div', 'cardInner')
         card.append(cardInner);
-
-        // let amounts = document.createElement('div');
-        // amounts.classList.add('amounts');
-
-        // let amounts = create('div','amounts')
-        // cardInner.append(amounts);
-
-        // let delButton = document.createElement('button')
-        // delButton.classList.add('delButton');
-
-
-
-        // let requiredAmount = document.createElement('div');
-        // requiredAmount.classList.add('requiredAmount');
-        // let reqInput = document.createElement('input');
 
         let requiredAmount = create('div', 'requiredAmount')
         requiredAmount.type = "number"
@@ -93,10 +57,6 @@ function init() {
 
         cardInner.append(requiredAmount);
 
-        // let startAmount = document.createElement('div');
-        // startAmount.classList.add('startAmount');
-        // let startAmountInput = document.createElement('input');
-
         let startAmount = create('div', 'startAmount')
         let tagStartP = document.createElement("p")
         tagStartP.innerText = "Стартовая сумма (₽):"
@@ -104,11 +64,6 @@ function init() {
         startAmount.append(tagStartP)
         startAmount.append(startAmountInput);
         cardInner.append(startAmount)
-
-        // let regAmount = document.createElement('div')
-        // regAmount.classList.add('regAmount')
-        // let regAmountResult = document.createElement('div')
-        // regAmountResult.classList.add('regAmountResult')
 
         let regAmount = create('div', 'regAmount')
         let tagRegP = document.createElement('p')
@@ -152,6 +107,32 @@ function init() {
             })
         })
         //------------------------------------
+        //V-------------Expand-------------V
+        expand.addEventListener('mouseover', (event) => {
+            expand.style.color = '#602b7a';
+            expand.style.backgroundColor = '#ffd847'
+            expand.addEventListener('mouseout', (event) => {
+                expand.style.removeProperty('color');
+                expand.style.removeProperty('background-color');
+            })
+        })
+
+        expand.addEventListener('click', (event) => {
+            if (expand.innerHTML == "Ʌ") {
+                cardInner.style.display = 'none';
+                delButton.style.display = 'none';
+                expand.innerHTML = "V";
+                expand.style.borderBottomRightRadius = '5px';
+                expand.style.border = 'none';
+            } else if (expand.innerHTML == "V") {
+                expand.innerHTML = "Ʌ";
+                cardInner.style.removeProperty('display');
+                delButton.style.removeProperty('display');
+                expand.style.removeProperty('border-bottom-right-radius');
+                expand.style.removeProperty('border')
+            }
+        })
+        //-----------------------------------
 
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
