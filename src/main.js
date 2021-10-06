@@ -134,6 +134,16 @@ function init() {
         })
         //-----------------------------------
 
+        delButton.addEventListener('click', (event) => {
+            const deleteBlock = allCards.findIndex((objElement) => {
+                return objElement.id == event.target.parentElement.id;
+            })
+            allCards.splice(deleteBlock, 1)
+            event.currentTarget.parentElement.remove()
+        })
+
+        //---------------------------------
+
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
