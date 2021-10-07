@@ -166,26 +166,30 @@ function changeObj(event) {
             return +event.currentTarget.parentElement.parentElement.id === element.id
         })
     }
-    console.log(currentCard)
     switch (event.currentTarget.className) {
         case 'goalName': currentCard.name = event.currentTarget.value;
         break;
 
         case 'reqInput': currentCard.reqAmount = event.currentTarget.value;
                        currentCard.regAmount = regularCalculate(currentCard);
-                       regAmountDiv.innerText = currentCard.regAmount;
+                       if (currentCard.date !== ''){
+                        regAmountDiv.innerText = currentCard.regAmount;
+                    }
 
         break;
 
         case 'startAmountInput': currentCard.startAmount = event.currentTarget.value;
                                 currentCard.regAmount = regularCalculate(currentCard);
-                                regAmountDiv.innerText = currentCard.regAmount;
+                                if (currentCard.date !== ''){
+                                    regAmountDiv.innerText = currentCard.regAmount;
+                                }
         break;
 
         case 'date': currentCard.date = event.currentTarget.value;
+                    currentCard.regAmount = regularCalculate(currentCard);
+                    regAmountDiv.innerText = currentCard.regAmount;
         break;
     }
-    console.log(allCards)
 }
 
 
