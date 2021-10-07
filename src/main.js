@@ -25,7 +25,6 @@ function init() {
 
     function createCard() {
 
-        // ===== первый блок
         let card = create('div', 'card');
         card.id = id;
         numberOfCards++;
@@ -46,7 +45,6 @@ function init() {
 
         nameDate.append(expand);
 
-        // // ==== второй блок 
 
         let cardInner = create('div', 'cardInner');
         card.append(cardInner);
@@ -120,7 +118,6 @@ function init() {
                 delButton.style.removeProperty('background-color');
             })
         })
-        //------------------------------------
         //V-------------Expand-------------V
         expand.addEventListener('mouseover', (event) => {
             expand.style.color = '#602b7a';
@@ -166,7 +163,7 @@ function init() {
         id++
     }
 
-    // ====================================================SUM OF ALL REG.AMOUNTS
+    // ============================SUM OF ALL REG.AMOUNTS
 
     function regAmountAll(){
 
@@ -174,8 +171,8 @@ function init() {
             sum += +element.regAmount;
         })
         resRegSum.innerText = sum;
-        comparingLimit()
         sum = 0;
+        comparingLimit()
 
     }
 
@@ -210,6 +207,7 @@ function changeObj(event) {
         currentCard[value] = activeInput.value;
         currentCard.regAmount = regularCalculate(currentCard);
         if (currentCard.date !== ''){
+            regAmountAll();
             return currentCard.regAmount;
         } else {
             return ''
@@ -240,6 +238,8 @@ function regularCalculate(card) {
         start = start * percent;
     }
    return Math.floor(monthAmount = (final - start) / percentFinal);
+}
+}
 }
 }
 
