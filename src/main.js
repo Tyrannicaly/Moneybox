@@ -102,8 +102,8 @@ function init() {
         let cardObj = {
             name: "",
             date: "",
-            startAmount: "",
-            reqAmount: "",
+            startAmountInput: "",
+            reqInput: "",
             regAmount: "",
             id: id
         }
@@ -205,47 +205,25 @@ function init() {
 function changeObj(event) {
     let currentCard = ''
     let regAmountDiv = ''
-    if (event.currentTarget.className !== 'goalName' && event.currentTarget.className !== 'date') {
-        currentCard = allCards.find(element => {
-            regAmountDiv = event.currentTarget.parentElement.parentElement.parentElement.children[1].children[2].children[1];
-            return +event.currentTarget.parentElement.parentElement.parentElement.id === element.id
-        })
-    } else {
-        currentCard = allCards.find(element => {
-            regAmountDiv = event.currentTarget.parentElement.parentElement.children[1].children[2].children[1];
-            return +event.currentTarget.parentElement.parentElement.id === element.id
-        })
-    }
-    switch (event.currentTarget.className) {
-        case 'goalName': currentCard.name = event.currentTarget.value;
-        break;
+    let activeInput = event.currentTarget
 
-        case 'reqInput': currentCard.reqAmount = event.currentTarget.value;
-                       currentCard.regAmount = regularCalculate(currentCard);
-                       if (currentCard.date !== ''){
-                        regAmountDiv.innerText = currentCard.regAmount;
-                        regAmountAll()
-                    }
+    currentCard = allCards.find(element => {
+        regAmountDiv = activeInput.closest('.card').querySelector('.regAmountResult');
+        return +activeInput.closest('.card').id === element.id
+    })
 
-        break;
+    activeInput.className === 'goalName' 
+        ? currentCard.name = activeInput.value 
+        : regAmountDiv.innerText = regularRecord(currentCard, activeInput.className, activeInput)
 
-        case 'startAmountInput': currentCard.startAmount = event.currentTarget.value;
-                                currentCard.regAmount = regularCalculate(currentCard);
-                                if (currentCard.date !== ''){
-                                    regAmountDiv.innerText = currentCard.regAmount;
-                                    regAmountAll()
-                                }
-        break;
-
-        case 'date': currentCard.date = event.currentTarget.value;
-                    currentCard.regAmount = regularCalculate(currentCard);
-                    regAmountDiv.innerText = currentCard.regAmount;
-                    regAmountAll()
-        break;
-    }
-}
-
-//=================================================================
+    function regularRecord(currentCard, value, activeInput){
+        currentCard[value] = activeInput.value;
+        currentCard.regAmount = regularCalculate(currentCard);
+        if (currentCard.date !== ''){
+            return currentCard.regAmount;
+        } else {
+            return ''
+        }
 
 function regularCalculate(card) {
     let now = new Date()
@@ -260,12 +238,12 @@ function regularCalculate(card) {
     } else {
         thenMounth = +thenMounth - now.getMonth();
     }
-let percent = 10;
-let iteration = thenMounth;
-let percentFinal = 0;
-let start = card.startAmount;
-let final = card.reqAmount;
-let monthAmount = 0;
+    let percent = 6.5;
+    let iteration = thenMounth;
+    let percentFinal = 0;
+    let start = card.startAmountInput;
+    let final = card.reqInput;
+    let monthAmount = 0;
     percent = percent / 100 / 12 + 1;
     for (let i = 0; i < iteration; i++) {
         percentFinal = percentFinal + Math.pow(percent, i + 1)
@@ -273,6 +251,5 @@ let monthAmount = 0;
     }
    return Math.floor(monthAmount = (final - start) / percentFinal);
 }
-
 }
 

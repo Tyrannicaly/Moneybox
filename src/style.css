@@ -89,6 +89,10 @@ h1 {
     cursor: pointer;
 }
 
+.addButton:active{
+    transform: translateY(4px);
+}
+
 .container p:nth-child(4) {
     width: auto;
     text-align: right;
@@ -97,7 +101,7 @@ h1 {
 
 .card {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 8px;
     display: flex;
     background-color: #eee;
     border-radius: 5px;
