@@ -185,8 +185,22 @@ function init() {
             allCards.forEach((element)  => {
                 sum += element.regAmount
             })
-            resRegSum.innerText = +sum 
+            resRegSum.innerText = +sum
+            comparingLimit()
     }
+
+    let limitNumber = document.querySelector('.limitBlock input');
+    limitNumber.addEventListener('change', comparingLimit);
+    function comparingLimit() {
+        resRegSum.style.removeProperty('color');
+        if (limitNumber.value == "") {
+        }
+        else if (resRegSum.innerText > limitNumber.value) {
+            console.log(limitNumber.value)
+            resRegSum.style.color = '#FF0000';
+       }
+    }
+    
 
 // ================
 
