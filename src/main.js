@@ -10,13 +10,17 @@ function create(elementType, elementClass) {
 // ======= CREATION ARRAY=====///
 let allCards = [];
 let id = 0;
+let sum = 0 ; 
 let numberOfCards = 0;
+
 
 window.addEventListener('load', init)
 
 function init() {
     createCard()
     let addButton = document.querySelector('.addButton');
+    const resRegSum = document.querySelector('.totalAmount');
+
     addButton.addEventListener('click', createCard);
 
     function createCard() {
@@ -174,7 +178,17 @@ function init() {
         date.addEventListener('change', changeObj)
         id++
     }
-}
+
+    // ====================================================SUM OF ALL REG.AMOUNTS
+
+    function regAmountAll(){
+            allCards.forEach((element)  => {
+                sum += element.regAmount
+            })
+            resRegSum.innerText = +sum 
+    }
+
+// ================
 
 function changeObj(event) {
     let currentCard = ''
@@ -198,6 +212,7 @@ function changeObj(event) {
                        currentCard.regAmount = regularCalculate(currentCard);
                        if (currentCard.date !== ''){
                         regAmountDiv.innerText = currentCard.regAmount;
+                        regAmountAll()
                     }
 
         break;
@@ -206,15 +221,19 @@ function changeObj(event) {
                                 currentCard.regAmount = regularCalculate(currentCard);
                                 if (currentCard.date !== ''){
                                     regAmountDiv.innerText = currentCard.regAmount;
+                                    regAmountAll()
                                 }
         break;
 
         case 'date': currentCard.date = event.currentTarget.value;
                     currentCard.regAmount = regularCalculate(currentCard);
                     regAmountDiv.innerText = currentCard.regAmount;
+                    regAmountAll()
         break;
     }
 }
+
+//=================================================================
 
 function regularCalculate(card) {
     let now = new Date()
@@ -242,3 +261,6 @@ let monthAmount = 0;
     }
    return Math.floor(monthAmount = (final - start) / percentFinal);
 }
+
+}
+
