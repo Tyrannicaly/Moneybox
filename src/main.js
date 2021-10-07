@@ -85,9 +85,7 @@ function init() {
         if (numberOfCards == 1) {
             document.querySelector('.container').append(card);
         } else if (numberOfCards > 1) {
-            console.log(document.querySelectorAll('.card'))
         document.querySelectorAll('.card').forEach((element) => {
-            console.log(element)
             element.children[1].style.display = 'none';
             element.lastElementChild.style.display = 'none';
             element.firstElementChild.lastChild.innerHTML = "V";
@@ -157,20 +155,9 @@ function init() {
             allCards.splice(deleteBlock, 1)
             event.currentTarget.parentElement.remove()
             numberOfCards--
+            regAmountAll();
         })
-
-        //-----------------------------------
-
-        delButton.addEventListener('click', (event) => {
-            const deleteBlock = allCards.findIndex((objElement) => {
-                return objElement.id == event.target.parentElement.id;
-            })
-            allCards.splice(deleteBlock, 1)
-            event.currentTarget.parentElement.remove()
-        })
-
         //---------------------------------
-
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
@@ -182,10 +169,12 @@ function init() {
     // ====================================================SUM OF ALL REG.AMOUNTS
 
     function regAmountAll(){
-            allCards.forEach((element)  => {
-                sum += element.regAmount
-            })
-            resRegSum.innerText = +sum 
+        allCards.forEach(element => {
+            sum += +element.regAmount;
+            console.log(element.regAmount);
+        })
+        resRegSum.innerText = sum;
+        sum = 0;
     }
 
 // ================
