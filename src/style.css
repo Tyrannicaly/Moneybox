@@ -227,3 +227,48 @@ h1 {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
 }
+
+.limitButton {
+    width: 23px;
+    height: 15px;
+    display: flex;
+    position: absolute;
+    color: #602b7a;
+    background-color: #ffd847;
+    border: none;
+    font-weight: 700;
+    border-radius: 5px;
+    line-height: 7px;
+    right: auto;
+    margin-left: 427px;
+}
+
+.limitButton:hover + .limitBlock{
+    display: block;
+}
+
+.limitBlock:hover{
+    display: block;
+}
+
+.limitBlock {
+    position: absolute;
+    display: none;
+    background-color: #eee;
+    padding: 3px;
+    border-radius: 5px;
+    margin-top: -33px;
+    margin-left: 427px;
+}
+
+.limitBlock p {
+    font-size: 12px;
+}
+
+.limitBlock input {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding-left: 5px;
+    width: 140px;
+}
