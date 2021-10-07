@@ -10,74 +10,92 @@ function create(elementType, elementClass) {
 // ======= CREATION ARRAY=====///
 let allCards = [];
 let id = 0;
+let sum = 0 ; 
+let numberOfCards = 0;
+
 
 window.addEventListener('load', init)
 
 function init() {
     createCard()
     let addButton = document.querySelector('.addButton');
+    const resRegSum = document.querySelector('.totalAmount');
+
     addButton.addEventListener('click', createCard);
 
     function createCard() {
 
         // ===== первый блок
-        let card = create('div', 'card', '.container')
-        card.id = id
+        let card = create('div', 'card');
+        card.id = id;
+        numberOfCards++;
 
-        let nameDate = create("div", "nameDate")
-        card.append(nameDate)
+        let nameDate = create("div", "nameDate");
+        card.append(nameDate);
 
-        let goalName = create("input", "goalName")
-        goalName.placeholder = "Название цели"
+        let goalName = create("input", "goalName");
+        goalName.placeholder = "Название цели";
         nameDate.append(goalName);
 
-        let date = create('input', 'date')
-        date.type = "date"
+        let date = create('input', 'date');
+        date.type = "date";
         nameDate.append(date);
 
-        let expand = create('button', 'expand')
-        expand.innerHTML = "Ʌ"
+        let expand = create('button', 'expand');
+        expand.innerHTML = "Ʌ";
 
         nameDate.append(expand);
 
         // // ==== второй блок 
 
-        let cardInner = create('div', 'cardInner')
+        let cardInner = create('div', 'cardInner');
         card.append(cardInner);
 
-        let requiredAmount = create('div', 'requiredAmount')
-        requiredAmount.type = "number"
+        let requiredAmount = create('div', 'requiredAmount');
+        requiredAmount.type = "number";
         let reqInput = create('input', 'reqInput');
         let tagReqP = document.createElement("p");
-        tagReqP.innerText = "Требуемая сумма (₽):"
+        tagReqP.innerText = "Требуемая сумма (₽):";
         requiredAmount.append(tagReqP);
         requiredAmount.append(reqInput);
 
         cardInner.append(requiredAmount);
 
-        let startAmount = create('div', 'startAmount')
-        let tagStartP = document.createElement("p")
-        tagStartP.innerText = "Стартовая сумма (₽):"
-        let startAmountInput = create('input', 'startAmountInput')
-        startAmount.append(tagStartP)
+        let startAmount = create('div', 'startAmount');
+        let tagStartP = document.createElement("p");
+        tagStartP.innerText = "Стартовая сумма (₽):";
+        let startAmountInput = create('input', 'startAmountInput');
+        startAmount.append(tagStartP);
         startAmount.append(startAmountInput);
-        cardInner.append(startAmount)
+        cardInner.append(startAmount);
 
-        let regAmount = create('div', 'regAmount')
-        let tagRegP = document.createElement('p')
-        let regAmountResult = create('div', 'regAmountResult')
-        regAmountResult.innerText = "0₽"
-        tagRegP.innerText = "Размер регулярных пополнений:"
-        regAmount.append(tagRegP)
-        regAmount.append(regAmountResult)
+        let regAmount = create('div', 'regAmount');
+        let tagRegP = document.createElement('p');
+        let regAmountResult = create('div', 'regAmountResult');
+        regAmountResult.innerText = "0₽";
+        tagRegP.innerText = "Размер регулярных пополнений:";
+        regAmount.append(tagRegP);
+        regAmount.append(regAmountResult);
         cardInner.append(regAmount);
 
-        let delButton = create('button', 'delButton')
+        let delButton = create('button', 'delButton');
         card.append(delButton);
-        delButton.innerText = "X"
+        delButton.innerText = "X";
 
-        document.querySelector('.container').append(card);
-
+        if (numberOfCards == 1) {
+            document.querySelector('.container').append(card);
+        } else if (numberOfCards > 1) {
+            console.log(document.querySelectorAll('.card'))
+        document.querySelectorAll('.card').forEach((element) => {
+            console.log(element)
+            element.children[1].style.display = 'none';
+            element.lastElementChild.style.display = 'none';
+            element.firstElementChild.lastChild.innerHTML = "V";
+            element.firstElementChild.lastChild.style.borderBottomRightRadius = '5px';
+            element.firstElementChild.lastChild.style.border = 'none';
+        })
+            document.querySelector('.container').insertBefore(card, document.querySelector('.card'));
+        }
 
         // ====== OBJECTS CREATION====//
 
@@ -130,6 +148,17 @@ function init() {
                 expand.style.removeProperty('border')
             }
         })
+        //----------------Deleting cards-------------
+
+        delButton.addEventListener('click', (event) => {
+            const deleteBlock = allCards.findIndex((objElement) => {
+                return objElement.id == event.target.parentElement.id;
+            })
+            allCards.splice(deleteBlock, 1)
+            event.currentTarget.parentElement.remove()
+            numberOfCards--
+        })
+
         //-----------------------------------
 
         delButton.addEventListener('click', (event) => {
@@ -150,7 +179,28 @@ function init() {
         id++
     }
 
-}
+    // ====================================================SUM OF ALL REG.AMOUNTS
+
+    function regAmountAll(){
+            allCards.forEach((element)  => {
+                sum += element.regAmount
+            })
+            resRegSum.innerText = +sum
+            comparingLimit()
+    }
+
+    let limitNumber = document.querySelector('.limitBlock input');
+    limitNumber.addEventListener('change', comparingLimit);
+    function comparingLimit() {
+        resRegSum.style.color = '#000000';
+        if (limitNumber.value == "") {
+        }
+        else if (+resRegSum.innerText > +limitNumber.value) {
+            resRegSum.style.color = '#FF0000';
+       }
+    }
+    
+// ================
 
 function changeObj(event) {
     let currentCard = ''
@@ -174,9 +224,6 @@ function changeObj(event) {
         } else {
             return ''
         }
-    }
-}
-
 
 function regularCalculate(card) {
     let now = new Date()
@@ -204,4 +251,5 @@ function regularCalculate(card) {
     }
    return Math.floor(monthAmount = (final - start) / percentFinal);
 }
-/////finish koda Pasha
+}
+
