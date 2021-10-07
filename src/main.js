@@ -1,13 +1,11 @@
+
 function create(elementType, elementClass) {
     let newElement = document.createElement(elementType);
     if (elementClass) {
         newElement.classList.add(elementClass);
     }
-    // let parent = document.querySelector(elementParent)
-    // parent.append(newElement)
     return newElement
-
-}
+  }
 
 // ======= CREATION ARRAY=====///
 let allCards = [];
@@ -22,72 +20,30 @@ function init() {
 
     function createCard() {
 
-
-
         // ===== первый блок
         let card = create('div', 'card', '.container')
         card.id = id
 
-
-
-        // let card = document.createElement('div');
-        // card.classList.add('card');
-
-        // let nameDate = document.createElement('div');
-        // nameDate.classList.add('nameDate');
-        // card.append(nameDate);
         let nameDate = create("div", "nameDate")
         card.append(nameDate)
-
-        // let goalName = document.createElement('input')
-        // goalName.classList.add('goalName');
 
         let goalName = create("input", "goalName")
         goalName.placeholder = "Название цели"
         nameDate.append(goalName);
 
-        // let date = document.createElement('input');
-        // date.type = 'date'
-        // date.classList.add('date');
-
         let date = create('input', 'date')
         date.type = "date"
         nameDate.append(date);
-
-
-        // let expand = document.createElement('div');
-        // expand.classList.add('expand');
-        // expand.style.color = "black"
-        // expand.style.border ='1px solid black'
 
         let expand = create('button', 'expand')
         expand.innerHTML = "Ʌ"
 
         nameDate.append(expand);
 
-
         // // ==== второй блок 
-
-        // let cardInner = document.createElement('div');
-        // cardInner.classList.add('cardInner');
 
         let cardInner = create('div', 'cardInner')
         card.append(cardInner);
-
-        // let amounts = document.createElement('div');
-        // amounts.classList.add('amounts');
-
-        // let amounts = create('div','amounts')
-        // cardInner.append(amounts);
-
-        // let delButton = document.createElement('button')
-        // delButton.classList.add('delButton');
-
-
-
-        // let requiredAmount = document.createElement('div');
-        // requiredAmount.classList.add('requiredAmount');
-        // let reqInput = document.createElement('input');
 
         let requiredAmount = create('div', 'requiredAmount')
         requiredAmount.type = "number"
@@ -99,10 +55,6 @@ function init() {
 
         cardInner.append(requiredAmount);
 
-        // let startAmount = document.createElement('div');
-        // startAmount.classList.add('startAmount');
-        // let startAmountInput = document.createElement('input');
-
         let startAmount = create('div', 'startAmount')
         let tagStartP = document.createElement("p")
         tagStartP.innerText = "Стартовая сумма (₽):"
@@ -110,11 +62,6 @@ function init() {
         startAmount.append(tagStartP)
         startAmount.append(startAmountInput);
         cardInner.append(startAmount)
-
-        // let regAmount = document.createElement('div')
-        // regAmount.classList.add('regAmount')
-        // let regAmountResult = document.createElement('div')
-        // regAmountResult.classList.add('regAmountResult')
 
         let regAmount = create('div', 'regAmount')
         let tagRegP = document.createElement('p')
@@ -142,6 +89,59 @@ function init() {
             regAmount: "",
             id: id
         }
+
+        //V-----------Shadow Box-----------V
+
+        delButton.addEventListener('mouseover', (event) => {
+            const shadowBox = document.createElement('div');
+            shadowBox.classList.add('shadowBox');
+            delButton.style.color = '#602b7a';
+            delButton.style.backgroundColor = '#ffd847'
+            card.append(shadowBox);
+            delButton.addEventListener('mouseout', (event) => {
+                shadowBox.remove();
+                delButton.style.removeProperty('color');
+                delButton.style.removeProperty('background-color');
+            })
+        })
+        //------------------------------------
+        //V-------------Expand-------------V
+        expand.addEventListener('mouseover', (event) => {
+            expand.style.color = '#602b7a';
+            expand.style.backgroundColor = '#ffd847'
+            expand.addEventListener('mouseout', (event) => {
+                expand.style.removeProperty('color');
+                expand.style.removeProperty('background-color');
+            })
+        })
+
+        expand.addEventListener('click', (event) => {
+            if (expand.innerHTML == "Ʌ") {
+                cardInner.style.display = 'none';
+                delButton.style.display = 'none';
+                expand.innerHTML = "V";
+                expand.style.borderBottomRightRadius = '5px';
+                expand.style.border = 'none';
+            } else if (expand.innerHTML == "V") {
+                expand.innerHTML = "Ʌ";
+                cardInner.style.removeProperty('display');
+                delButton.style.removeProperty('display');
+                expand.style.removeProperty('border-bottom-right-radius');
+                expand.style.removeProperty('border')
+            }
+        })
+        //-----------------------------------
+
+        delButton.addEventListener('click', (event) => {
+            const deleteBlock = allCards.findIndex((objElement) => {
+                return objElement.id == event.target.parentElement.id;
+            })
+            allCards.splice(deleteBlock, 1)
+            event.currentTarget.parentElement.remove()
+        })
+
+        //---------------------------------
+
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
@@ -150,27 +150,46 @@ function init() {
         id++
     }
 
-
 }
 
 function changeObj(event) {
-    let currentCard = allCards.find(element => {
-        return +event.currentTarget.parentElement.parentElement.id === element.id
-    })
+    let currentCard = ''
+    let regAmountDiv = ''
+    if (event.currentTarget.className !== 'goalName' && event.currentTarget.className !== 'date') {
+        currentCard = allCards.find(element => {
+            regAmountDiv = event.currentTarget.parentElement.parentElement.parentElement.children[1].children[2].children[1];
+            return +event.currentTarget.parentElement.parentElement.parentElement.id === element.id
+        })
+    } else {
+        currentCard = allCards.find(element => {
+            regAmountDiv = event.currentTarget.parentElement.parentElement.children[1].children[2].children[1];
+            return +event.currentTarget.parentElement.parentElement.id === element.id
+        })
+    }
     switch (event.currentTarget.className) {
         case 'goalName': currentCard.name = event.currentTarget.value;
         break;
 
         case 'reqInput': currentCard.reqAmount = event.currentTarget.value;
+                       currentCard.regAmount = regularCalculate(currentCard);
+                       if (currentCard.date !== ''){
+                        regAmountDiv.innerText = currentCard.regAmount;
+                    }
+
         break;
-        
+
         case 'startAmountInput': currentCard.startAmount = event.currentTarget.value;
+                                currentCard.regAmount = regularCalculate(currentCard);
+                                if (currentCard.date !== ''){
+                                    regAmountDiv.innerText = currentCard.regAmount;
+                                }
         break;
 
         case 'date': currentCard.date = event.currentTarget.value;
+                    currentCard.regAmount = regularCalculate(currentCard);
+                    regAmountDiv.innerText = currentCard.regAmount;
         break;
     }
-    console.log(allCards)
 }
 // ==== MEDOT REDUSE====//
 
@@ -182,4 +201,30 @@ let result = allCards.reduce(function(sum, currentCard) {
 console.log(result)
 
 
+function regularCalculate(card) {
+    let now = new Date()
+    let thenYear = card.date.charAt(0) + card.date.charAt(1) + card.date.charAt(2) + card.date.charAt(3);
+    let thenMounth = card.date.charAt(5) + card.date.charAt(6) - 1;
+    let thenDay = card.date.charAt(8) + card.date.charAt(9);
+    if (+thenYear > now.getFullYear()) {
+        thenMounth = 11 - now.getMonth() + thenMounth;
+        if (+thenYear - now.getFullYear() > 1) {
+            thenMounth = thenMounth * (+thenYear - now.getFullYear());
+        }
+    } else {
+        thenMounth = +thenMounth - now.getMonth();
+    }
+let percent = 10;
+let iteration = thenMounth;
+let percentFinal = 0;
+let start = card.startAmount;
+let final = card.reqAmount;
+let monthAmount = 0;
+    percent = percent / 100 / 12 + 1;
+    for (let i = 0; i < iteration; i++) {
+        percentFinal = percentFinal + Math.pow(percent, i + 1)
+        start = start * percent;
+    }
+   return Math.floor(monthAmount = (final - start) / percentFinal);
+}
 /////finish koda Pasha
