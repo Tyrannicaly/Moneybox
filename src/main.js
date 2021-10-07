@@ -4,8 +4,6 @@ function create(elementType, elementClass) {
     if (elementClass) {
         newElement.classList.add(elementClass);
     }
-    // let parent = document.querySelector(elementParent)
-    // parent.append(newElement)
     return newElement
   }
 
@@ -159,6 +157,16 @@ function init() {
 
         //-----------------------------------
 
+        delButton.addEventListener('click', (event) => {
+            const deleteBlock = allCards.findIndex((objElement) => {
+                return objElement.id == event.target.parentElement.id;
+            })
+            allCards.splice(deleteBlock, 1)
+            event.currentTarget.parentElement.remove()
+        })
+
+        //---------------------------------
+
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
@@ -170,21 +178,68 @@ function init() {
 }
 
 function changeObj(event) {
-    let currentCard = allCards.find(element => {
-        return +event.currentTarget.parentElement.parentElement.id === element.id
-    })
+    let currentCard = ''
+    let regAmountDiv = ''
+    if (event.currentTarget.className !== 'goalName' && event.currentTarget.className !== 'date') {
+        currentCard = allCards.find(element => {
+            regAmountDiv = event.currentTarget.parentElement.parentElement.parentElement.children[1].children[2].children[1];
+            return +event.currentTarget.parentElement.parentElement.parentElement.id === element.id
+        })
+    } else {
+        currentCard = allCards.find(element => {
+            regAmountDiv = event.currentTarget.parentElement.parentElement.children[1].children[2].children[1];
+            return +event.currentTarget.parentElement.parentElement.id === element.id
+        })
+    }
     switch (event.currentTarget.className) {
         case 'goalName': currentCard.name = event.currentTarget.value;
         break;
 
         case 'reqInput': currentCard.reqAmount = event.currentTarget.value;
+                       currentCard.regAmount = regularCalculate(currentCard);
+                       if (currentCard.date !== ''){
+                        regAmountDiv.innerText = currentCard.regAmount;
+                    }
+
         break;
-        
+
         case 'startAmountInput': currentCard.startAmount = event.currentTarget.value;
+                                currentCard.regAmount = regularCalculate(currentCard);
+                                if (currentCard.date !== ''){
+                                    regAmountDiv.innerText = currentCard.regAmount;
+                                }
         break;
 
         case 'date': currentCard.date = event.currentTarget.value;
+                    currentCard.regAmount = regularCalculate(currentCard);
+                    regAmountDiv.innerText = currentCard.regAmount;
         break;
     }
-    console.log(allCards)
+}
+
+function regularCalculate(card) {
+    let now = new Date()
+    let thenYear = card.date.charAt(0) + card.date.charAt(1) + card.date.charAt(2) + card.date.charAt(3);
+    let thenMounth = card.date.charAt(5) + card.date.charAt(6) - 1;
+    let thenDay = card.date.charAt(8) + card.date.charAt(9);
+    if (+thenYear > now.getFullYear()) {
+        thenMounth = 11 - now.getMonth() + thenMounth;
+        if (+thenYear - now.getFullYear() > 1) {
+            thenMounth = thenMounth * (+thenYear - now.getFullYear());
+        }
+    } else {
+        thenMounth = +thenMounth - now.getMonth();
+    }
+let percent = 10;
+let iteration = thenMounth;
+let percentFinal = 0;
+let start = card.startAmount;
+let final = card.reqAmount;
+let monthAmount = 0;
+    percent = percent / 100 / 12 + 1;
+    for (let i = 0; i < iteration; i++) {
+        percentFinal = percentFinal + Math.pow(percent, i + 1)
+        start = start * percent;
+    }
+   return Math.floor(monthAmount = (final - start) / percentFinal);
 }
