@@ -146,7 +146,6 @@ function regularCalculate(card) {
     if (+thenYear > now.getFullYear()) {
         thenMounth = 11 - now.getMonth() + thenMounth;
         if (+thenYear - now.getFullYear() > 1) {
-            console.log('x')
             thenMounth = thenMounth * (+thenYear - now.getFullYear());
         }
     } else {
