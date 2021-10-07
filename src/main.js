@@ -1,11 +1,11 @@
+
 function create(elementType, elementClass) {
     let newElement = document.createElement(elementType);
     if (elementClass) {
         newElement.classList.add(elementClass);
     }
     return newElement
-
-}
+  }
 
 // ======= CREATION ARRAY=====///
 let allCards = [];
@@ -20,11 +20,10 @@ function init() {
 
     function createCard() {
 
-
-
         // ===== первый блок
         let card = create('div', 'card', '.container')
         card.id = id
+
         let nameDate = create("div", "nameDate")
         card.append(nameDate)
 
@@ -40,7 +39,6 @@ function init() {
         expand.innerHTML = "Ʌ"
 
         nameDate.append(expand);
-
 
         // // ==== второй блок 
 
@@ -91,6 +89,59 @@ function init() {
             regAmount: "",
             id: id
         }
+
+        //V-----------Shadow Box-----------V
+
+        delButton.addEventListener('mouseover', (event) => {
+            const shadowBox = document.createElement('div');
+            shadowBox.classList.add('shadowBox');
+            delButton.style.color = '#602b7a';
+            delButton.style.backgroundColor = '#ffd847'
+            card.append(shadowBox);
+            delButton.addEventListener('mouseout', (event) => {
+                shadowBox.remove();
+                delButton.style.removeProperty('color');
+                delButton.style.removeProperty('background-color');
+            })
+        })
+        //------------------------------------
+        //V-------------Expand-------------V
+        expand.addEventListener('mouseover', (event) => {
+            expand.style.color = '#602b7a';
+            expand.style.backgroundColor = '#ffd847'
+            expand.addEventListener('mouseout', (event) => {
+                expand.style.removeProperty('color');
+                expand.style.removeProperty('background-color');
+            })
+        })
+
+        expand.addEventListener('click', (event) => {
+            if (expand.innerHTML == "Ʌ") {
+                cardInner.style.display = 'none';
+                delButton.style.display = 'none';
+                expand.innerHTML = "V";
+                expand.style.borderBottomRightRadius = '5px';
+                expand.style.border = 'none';
+            } else if (expand.innerHTML == "V") {
+                expand.innerHTML = "Ʌ";
+                cardInner.style.removeProperty('display');
+                delButton.style.removeProperty('display');
+                expand.style.removeProperty('border-bottom-right-radius');
+                expand.style.removeProperty('border')
+            }
+        })
+        //-----------------------------------
+
+        delButton.addEventListener('click', (event) => {
+            const deleteBlock = allCards.findIndex((objElement) => {
+                return objElement.id == event.target.parentElement.id;
+            })
+            allCards.splice(deleteBlock, 1)
+            event.currentTarget.parentElement.remove()
+        })
+
+        //---------------------------------
+
         allCards.push(cardObj)
         goalName.addEventListener('keyup', changeObj)
         reqInput.addEventListener('keyup', changeObj)
@@ -98,7 +149,6 @@ function init() {
         date.addEventListener('change', changeObj)
         id++
     }
-
 
 }
 
@@ -137,6 +187,7 @@ function changeObj(event) {
     }
     console.log(allCards)
 }
+
 
 function regularCalculate(card) {
     let now = new Date()
