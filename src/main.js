@@ -192,16 +192,14 @@ function init() {
     let limitNumber = document.querySelector('.limitBlock input');
     limitNumber.addEventListener('change', comparingLimit);
     function comparingLimit() {
-        resRegSum.style.removeProperty('color');
+        resRegSum.style.color = '#000000';
         if (limitNumber.value == "") {
         }
-        else if (resRegSum.innerText > limitNumber.value) {
-            console.log(limitNumber.value)
+        else if (+resRegSum.innerText > +limitNumber.value) {
             resRegSum.style.color = '#FF0000';
        }
     }
     
-
 // ================
 
 function changeObj(event) {

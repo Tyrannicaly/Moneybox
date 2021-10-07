@@ -3,6 +3,7 @@
 body, html, p, input {
     margin: 0;
     padding: 0;
+    color: #000000;
 }
 
 body {
