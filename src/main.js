@@ -174,7 +174,6 @@ function init() {
         date.addEventListener('change', changeObj)
         id++
     }
-
 }
 
 function changeObj(event) {
